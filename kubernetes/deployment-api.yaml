@@ -27,9 +27,19 @@ spec:
         app: api
     spec:
       automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
       containers:
         - name: api-container
           image: ghcr.io/soat-fiap/fiap.techchallenge.bytemeburger/api:sha-b83177c
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+              - ALL
           ports:
             - name: liveness-port
               containerPort: 8080

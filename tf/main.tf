@@ -206,10 +206,9 @@ resource "kubernetes_horizontal_pod_autoscaler_v2" "hpa_api" {
     }
 
     metric {
-      type = "ContainerResource"
-      container_resource {
-        container = "api-container"
-        name      = "cpu"
+      type = "Resource"
+      resource {
+        name = "cpu"
         target {
           average_utilization = 65
           type                = "Utilization"
