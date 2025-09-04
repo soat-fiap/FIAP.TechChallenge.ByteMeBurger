@@ -16,9 +16,16 @@ spec:
         app: pod-mysql
     spec:
       automountServiceAccountToken: false
+      securityContext:
+        fsGroup: 999
       containers:
         - name: mysql-container
           image: ghcr.io/soat-fiap/fiap.techchallenge.bytemeburger/db:sha-b83177c
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: mysql-persistent-storage
